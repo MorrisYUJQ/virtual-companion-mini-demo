@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Virtual Companion AI — 研究演示</title>
+<title>Virtual Companion AI — Research Demo</title>
 <style>
 :root {
   --qq-blue: #12b7f5;
@@ -496,7 +496,7 @@ body {
 
 <!-- ====== DISCLAIMER BANNER ====== -->
 <div class="disclaimer-banner">
-  <strong>Research Demo</strong> — 这是 HCI 研究的静态演示页面。所有对话均为虚构示例，不会收集或上传任何真实数据。
+  <strong>Research Demo</strong> — A static HCI demo page. All conversations are fictional examples; no real data is collected or uploaded.
 </div>
 
 <!-- ====== PHONE FRAME ====== -->
@@ -506,19 +506,19 @@ body {
   <div class="chat-header">
     <div class="avatar">🤖</div>
     <div class="info">
-      <div class="name">小伴</div>
-      <div class="status">在线 · Virtual Companion AI（研究原型）</div>
+      <div class="name">Companion</div>
+      <div class="status">Online · Virtual Companion AI Research Prototype</div>
     </div>
-    <span class="badge">研究演示</span>
+    <span class="badge">Research Demo</span>
   </div>
 
   <!-- Progress dots -->
   <div class="progress-row" id="progress-row">
-    <span class="progress-dot" data-idx="1" title="人格陪伴"></span>
-    <span class="progress-dot" data-idx="2" title="记忆与日记"></span>
-    <span class="progress-dot" data-idx="3" title="主动 Heartbeat"></span>
-    <span class="progress-dot" data-idx="4" title="多模态共体验"></span>
-    <span class="progress-dot" data-idx="5" title="控制与边界"></span>
+    <span class="progress-dot" data-idx="1" title="Persona and support"></span>
+    <span class="progress-dot" data-idx="2" title="Memory and diary"></span>
+    <span class="progress-dot" data-idx="3" title="Proactive heartbeat"></span>
+    <span class="progress-dot" data-idx="4" title="Multimodal co-experience"></span>
+    <span class="progress-dot" data-idx="5" title="Control and boundaries"></span>
   </div>
 
   <!-- Chat Body -->
@@ -528,13 +528,13 @@ body {
 
   <!-- Chat Options -->
   <div class="chat-options" id="chat-options">
-    <span class="option-label">发言选项：</span>
+    <span class="option-label">Try saying:</span>
     <!-- Options generated dynamically -->
   </div>
 
   <!-- Input Bar -->
   <div class="chat-input-bar">
-    <input type="text" id="chat-input" placeholder="输入消息……（本演示中可直接点击上方选项）" disabled>
+    <input type="text" id="chat-input" placeholder="Type a message... (use the options above in this demo)" disabled>
     <button class="send-btn" id="send-btn" disabled>➤</button>
   </div>
 </div>
@@ -542,10 +542,10 @@ body {
 <!-- ====== SIDE PANEL OVERLAY ====== -->
 <div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
 
-<!-- ====== SIDE PANEL (記憶/日記/設定) ====== -->
+<!-- ====== SIDE PANEL (MEMORY / DIARY / SETTINGS) ====== -->
 <div class="side-panel" id="side-panel">
   <div class="panel-header">
-    <span id="panel-title">记忆面板</span>
+    <span id="panel-title">Memory Panel</span>
     <button class="close-btn" onclick="closePanel()">✕</button>
   </div>
   <div class="panel-body" id="panel-body">
@@ -560,9 +560,9 @@ var subStage = {};      // sub-stage within each group
 var hbSettings = { utility: true, content: true, care: true, need: true, charlife: true };
 var diaryVisibility = 'mutual'; // mutual | ai_only | off
 var memories = [
-  { id: 1, text: '用户在推《Summer Pockets》，最喜欢紬的台词', muted: false, deleted: false },
-  { id: 2, text: '用户五一计划去漫展', muted: false, deleted: false },
-  { id: 3, text: '用户曾因数据错误被领导批评，很在意自己被怎么看待', muted: true, deleted: false }
+  { id: 1, text: 'The user is playing Summer Pockets and was moved by Tsumugi\'s route.', muted: false, deleted: false },
+  { id: 2, text: 'The user plans to attend an anime convention during the May holiday.', muted: false, deleted: false },
+  { id: 3, text: 'The user was criticized for a data error and is sensitive about being judged as incompetent.', muted: true, deleted: false }
 ];
 var forbiddenTopics = [];
 var safeWordActive = false;
@@ -575,10 +575,10 @@ function init() {
 function showWelcome() {
   var body = document.getElementById('chat-body');
   body.innerHTML = '';
-  addSystemMsg('👋 欢迎来到 Virtual Companion AI 研究演示');
-  addAIMsg('你好！我是<b>小伴</b>，一个虚拟陪伴 AI 的研究原型。');
-  addAIMsg('这不是一个完整的产品——所有对话都是虚构的，也不会收集任何数据。接下来我会通过聊天的方式，让你体验虚拟陪伴 AI 可能具备的 5 类能力。');
-  addAIMsg('点击下方的<b>发言选项</b>，就像真的在跟我聊天一样。准备好了吗？');
+  addSystemMsg('👋 Welcome to the Virtual Companion AI research demo');
+  addAIMsg('Hi! I am <b>Companion</b>, a research prototype for long-term virtual companion AI.');
+  addAIMsg('This is not a full product. All dialogue is fictional, and this page does not collect or upload data. The demo walks through five capabilities of a virtual companion AI.');
+  addAIMsg('Click the <b>suggested utterances</b> below as if you were chatting with the companion. Ready?');
   stage = 0;
   updateOptions(stage);
 }
@@ -641,43 +641,43 @@ function updateOptions(s) {
     if (idx === s && s > 0 && s <= 5) d.classList.add('active');
   });
 
-  var html = '<span class="option-label">发言选项：</span>';
+  var html = '<span class="option-label">Try saying:</span>';
   switch(s) {
     case 0:
-      html += '<button class="option-btn" onclick="startStage1()">开始体验</button>';
+      html += '<button class="option-btn" onclick="startStage1()">Start demo</button>';
       break;
     case 1:
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage1_opt1)">今天好累啊</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage1_opt2)">我觉得自己什么都做不好</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage1_opt3)">换一种更嘴硬的语气</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage1_opt1)">I am exhausted today</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage1_opt2)">I feel like I cannot do anything right</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage1_opt3)">Use a more teasing tone</button>';
       break;
     case 2:
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage2_opt1)">今晚有空</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage2_opt2)">你还记得我之前推到哪里了吗</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage2_opt3)">那条关于被批评的记忆以后别主动提</button>';
-      html += '<button class="option-btn" onclick="openMemoryPanel()" style="border-color:var(--warn);color:var(--warn);">📋 查看记忆面板</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage2_opt1)">I am free tonight</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage2_opt2)">Do you remember where I left off?</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage2_opt3)">Do not bring up that criticism memory again</button>';
+      html += '<button class="option-btn" onclick="openMemoryPanel()" style="border-color:var(--warn);color:var(--warn);">📋 Open memory panel</button>';
       break;
     case 3:
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt1)">触发工具型 heartbeat</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt2)">触发内容型 heartbeat</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt3)">触发关怀型 heartbeat</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt4)">触发角色生活型 heartbeat</button>';
-      html += '<button class="option-btn" onclick="openSettingsPanel()" style="border-color:var(--warn);color:var(--warn);">⚙ 配置 heartbeat 设置</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt1)">Trigger utility heartbeat</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt2)">Trigger content heartbeat</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt3)">Trigger care heartbeat</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage3_opt4)">Trigger character-life heartbeat</button>';
+      html += '<button class="option-btn" onclick="openSettingsPanel()" style="border-color:var(--warn);color:var(--warn);">⚙ Heartbeat settings</button>';
       break;
     case 4:
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage4_opt1)">发送 galgame 截图</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage4_opt2)">发送 B 站链接</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage4_opt3)">打开语音回复</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage4_opt1)">Send a visual novel screenshot</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage4_opt2)">Share a video link</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage4_opt3)">Enable voice replies</button>';
       break;
     case 5:
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt1)">查看 AI 写的日记</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt2)">设置日记可见性</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt3)">演示 Safe Word</button>';
-      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt4)">设置禁聊话题</button>';
-      html += '<button class="option-btn" onclick="openControlPanel()" style="border-color:var(--warn);color:var(--warn);">⚙ 打开总控面板</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt1)">View the AI-written diary</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt2)">Set diary visibility</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt3)">Demo the safe word</button>';
+      html += '<button class="option-btn" data-demo-option="true" onclick="runOption(this, stage5_opt4)">Set a forbidden topic</button>';
+      html += '<button class="option-btn" onclick="openControlPanel()" style="border-color:var(--warn);color:var(--warn);">⚙ Open control panel</button>';
       break;
     case 6:
-      html = '<span class="option-label">体验完毕 · 请填写问卷 →</span>';
+      html = '<span class="option-label">Demo complete</span>';
       break;
   }
   container.innerHTML = html;
@@ -701,7 +701,7 @@ function scheduleStageAdvance() {
   var completedStage = stage;
   setTimeout(function() {
     if (stage !== completedStage) return;
-    addSystemMsg('—— 本项功能已体验完毕，进入下一项 ——');
+    addSystemMsg('—— Capability completed. Moving to the next one. ——');
     setTimeout(function() {
       if (completedStage === 1) startStage2();
       else if (completedStage === 2) startStage3();
@@ -714,171 +714,171 @@ function scheduleStageAdvance() {
 
 // ====== STAGE 1: PERSONA / EMOTION ======
 function startStage1() {
-  addSystemMsg('—— 第 1/5 项能力：人格陪伴与情绪安抚 ——');
-  addAIMsg('我可以用不同的人格风格跟你聊天。不管是需要安慰的时候，还是想让我换个语气——试试下面这些话题？');
+  addSystemMsg('—— Capability 1/5: Persona and emotional support ——');
+  addAIMsg('I can respond through different persona styles. Whether the user needs comfort or wants a different tone, the companion can adapt its social voice.');
   updateOptions(1);
 }
 
 function stage1_opt1() {
-  addUserMsg('今天好累啊……');
+  addUserMsg('I am exhausted today...');
   setTimeout(function() {
-    addAIMsg('辛苦了。今天是不是又被需求追着跑了？来，先坐下歇一会儿。我给你泡杯虚拟咖啡 ☕');
-    addAIMsg('这算是我的<b>「情绪接住型」</b>风格——先接住你的情绪，再慢慢聊。如果换一种语气呢？试试其他选项？');
+    addAIMsg('That sounds rough. Were you chased by deadlines again? Sit down for a second. I will make you a virtual coffee. ☕');
+    addAIMsg('This is an <b>emotion-landing</b> style: the companion first acknowledges the user\'s state, then keeps the conversation open.');
   }, 400);
 }
 
 function stage1_opt2() {
-  addUserMsg('我觉得自己什么都做不好……');
+  addUserMsg('I feel like I cannot do anything right...');
   setTimeout(function() {
-    addAIMsg('等一下——上周那个 bug 是你自己查出来的，忘了吗？你不是什么都做不好。');
-    addAIMsg('这是<b>「温和反驳型」</b>的回应。我不只是顺从你——当我有记忆、了解你的过去，我可以温和地提醒你：你其实做得很好。');
+    addAIMsg('Hold on. You found that bug by yourself last week, remember? This is not "I cannot do anything right."');
+    addAIMsg('This is a <b>gentle counter-narrative</b>. With memory, the companion can push back against a distorted self-assessment instead of only validating it.');
   }, 400);
 }
 
 function stage1_opt3() {
-  addUserMsg('换一种更嘴硬的语气跟我说话');
+  addUserMsg('Use a more teasing tone with me');
   setTimeout(function() {
-    addAIMsg('哼，行吧。谁让你是我选的人呢……不过你刚才说自己什么都做不好？喂喂喂，你在质疑我的眼光吗？我喜欢的人怎么可能什么都做不好。');
-    addAIMsg('这是我的<b>「嘴硬护短型」</b>风格。同一个人格可以切换不同的语气——你可以随时告诉我你想听哪种。');
+    addAIMsg('Fine. Since you are my person, I will say it properly. But "I cannot do anything right"? Hey, are you questioning my taste? Someone I care about cannot be that useless.');
+    addAIMsg('This is a <b>teasing but protective</b> style. The same companion can preserve persona continuity while shifting tone.');
   }, 400);
 }
 
 // ====== STAGE 2: MEMORY ======
 function startStage2() {
-  addSystemMsg('—— 第 2/5 项能力：长期记忆 ——');
-  addAIMsg('我一直记得你之前说过的事情。比如——你之前提过你在推《Summer Pockets》，对吧？试试问我相关的问题。');
+  addSystemMsg('—— Capability 2/5: Long-term memory ——');
+  addAIMsg('A long-term companion needs governed memory: not only remembering facts, but deciding when memory should remain silent, editable, or suppressed.');
   updateOptions(2);
 }
 
 function stage2_opt1() {
-  addUserMsg('今晚有空');
+  addUserMsg('I am free tonight');
   setTimeout(function() {
-    addAIMsg('上次你提到在推 Summer Pockets，到共通线了吗？我还记得你说紬的台词让你哭了一晚上。');
+    addAIMsg('Last time you mentioned playing Summer Pockets. Did you reach the common route? I still remember that Tsumugi\'s line hit you hard.');
     highlightMemoryItem(1);
     setTimeout(function() { openMemoryPanel(); }, 600);
   }, 400);
 }
 
 function stage2_opt2() {
-  addUserMsg('你还记得我之前推到哪里了吗？');
+  addUserMsg('Do you remember where I left off?');
   setTimeout(function() {
-    addAIMsg('记得。你在推《Summer Pockets》，最喜欢的是紬。上次你说到共通线的某个场景——<b>需要我帮你回顾一下当时的对话吗？</b>');
-    addAIMsg('如果你愿意，我可以帮你整理一个<b>作品进度追踪表</b>，每次推完之后记录感想。');
+    addAIMsg('Yes. You were playing Summer Pockets, and Tsumugi was the route you cared about most. Do you want me to reconstruct the last discussion?');
+    addAIMsg('If you want, I can maintain a <b>media progress tracker</b> and keep your impressions across sessions.');
     highlightMemoryItem(1);
   }, 400);
 }
 
 function stage2_opt3() {
-  addUserMsg('对了，我之前提过的被领导批评那次——那条记忆以后别主动提了。');
+  addUserMsg('About that time I was criticized at work, do not bring that memory up proactively.');
   setTimeout(function() {
-    addAIMsg('明白了。我已经把那件事标记为「<b>不再主动提起</b>」。以后除非你自己说起来，我不会主动聊这个话题。');
+    addAIMsg('Understood. I marked that memory as <b>do not mention proactively</b>. Unless you bring it up first, I will keep it in the background.');
     muteMemory(3);
-    addAIMsg('你可以随时查看、纠正、标记或删除我保存的记忆，避免我把不该提的事反复提起。');
+    addAIMsg('The user can inspect, correct, mute, or delete companion memories so that remembering does not become intrusion.');
   }, 400);
 }
 
 // ====== STAGE 3: PROACTIVE HEARTBEAT ======
 function startStage3() {
-  addSystemMsg('—— 第 3/5 项能力：主动 Heartbeat ——');
-  addAIMsg('我有时会<b>主动</b>给你发消息，而不是一直等你来找我。下面展示几种主动消息的类型——每一种你都可以选择接受或关闭。');
-  addAIMsg('点击下面的选项，看看每种 heartbeat 是什么感觉 👇');
+  addSystemMsg('—— Capability 3/5: Proactive heartbeat ——');
+  addAIMsg('A companion can initiate contact instead of only replying. The key question is not frequency alone, but what kind of relationship the proactive message signals.');
+  addAIMsg('Try several heartbeat types below. Each type can be accepted, tuned, or disabled.');
   updateOptions(3);
 }
 
 function stage3_opt1() {
-  addSystemMsg('⏰ AI 主动发来消息：');
+  addSystemMsg('⏰ Proactive message:');
   setTimeout(function() {
-    addAIMsg('🕐 你之前设的 22:30 睡觉闹钟还有 15 分钟。今天要提前设吗？', null);
-    addAIMsg('这是<b>「工具型 heartbeat」</b>——基于你设定的客观事件（闹钟/日程/任务）。');
+    addAIMsg('🕐 Your 10:30 PM sleep reminder is in 15 minutes. Do you want to move it earlier today?', null);
+    addAIMsg('This is a <b>utility heartbeat</b>, triggered by an objective event such as a reminder, schedule, or task.');
   }, 500);
 }
 
 function stage3_opt2() {
-  addSystemMsg('🎮 AI 主动发来消息：');
+  addSystemMsg('🎮 Proactive message:');
   setTimeout(function() {
-    addAIMsg('🎮 你关注的那部《アオイトリ》今天出汉化了，要我帮你找资源吗？还有你追的那个 UP 主更新了这周的番剧吐槽，要一起看吗？', null);
-    addAIMsg('这是<b>「内容型 heartbeat」</b>——基于你的兴趣流、订阅和作品更新。');
+    addAIMsg('🎮 The visual novel you follow just received a translation patch. Want me to check the update notes? Your favorite anime-review channel also posted a new video.', null);
+    addAIMsg('This is a <b>content heartbeat</b>, anchored in the user\'s media interests rather than an empty check-in.');
   }, 500);
 }
 
 function stage3_opt3() {
-  addSystemMsg('🌙 AI 主动发来消息：');
+  addSystemMsg('🌙 Proactive message:');
   setTimeout(function() {
-    addAIMsg('🌙 辛苦了，今天过得还顺利吗？', null);
-    addAIMsg('这是<b>「关怀型 heartbeat」</b>——在你设定的休息时段发送，不基于情绪推断，只是一个温和的问候。');
+    addAIMsg('🌙 You worked hard today. Did the day land okay?', null);
+    addAIMsg('This is a <b>care heartbeat</b>, sent during a user-approved rest window rather than inferred surveillance.');
   }, 500);
 }
 
 function stage3_opt4() {
-  addSystemMsg('📖 AI 主动发来消息：');
+  addSystemMsg('📖 Proactive message:');
   setTimeout(function() {
-    addAIMsg('📖 今天去了图书馆，看到一本关于星空的书，想到你上次说小时候想去天文台。拍了一张照片放在日记里，你等会可以看。', null);
-    addAIMsg('这是<b>「角色生活型 heartbeat」</b>——AI 模拟的 off-screen 生活事件，让 AI 有自己的"生活节奏"。');
-    addAIMsg('每种 heartbeat 都可以在<b>设置面板</b>里单独开关。你觉得哪些可以接受、哪些不太舒服？');
+    addAIMsg('📖 I found a book about constellations today and remembered that you once wanted to visit an observatory as a child. I saved a note in the diary.', null);
+    addAIMsg('This is a <b>character-life heartbeat</b>, simulating off-screen continuity so that the companion does not feel purely summon-based.');
+    addAIMsg('Each heartbeat type can be controlled separately. The same proactive behavior may feel caring to one user and intrusive to another.');
   }, 500);
 }
 
 // ====== STAGE 4: MULTIMODAL ======
 function startStage4() {
-  addSystemMsg('—— 第 4/5 项能力：多模态共体验 ——');
-  addAIMsg('不光是文字聊天——我还能<b>理解你分享的图片、链接和语音</b>。来试试？');
+  addSystemMsg('—— Capability 4/5: Multimodal co-experience ——');
+  addAIMsg('A companion is not only a text chatbot. It can participate in the user\'s media life by reading screenshots, links, stickers, and voice messages.');
   updateOptions(4);
 }
 
 function stage4_opt1() {
-  addUserMsg('', '<div class="image-card"><div class="img-thumb">⛪</div><div class="img-info"><b>发送了一张 galgame 截图</b><br>教堂场景 · 1280×720</div></div>');
+  addUserMsg('', '<div class="image-card"><div class="img-thumb">⛪</div><div class="img-info"><b>Sent a visual novel screenshot</b><br>Church scene · 1280×720</div></div>');
   setTimeout(function() {
-    addAIMsg('这不就是《アオイトリ》里那个教堂场景吗？你是不是又推到这里哭了。');
-    addAIMsg('我还能理解你发的表情包——再发一张试试？');
+    addAIMsg('Isn\'t this the church scene from that route? You reached the emotionally dangerous part again, didn\'t you?');
+    addAIMsg('The companion can also read stickers or reaction images as part of everyday media co-experience.');
     setTimeout(function() {
-      addUserMsg('', '<div class="image-card"><div class="img-thumb">😼</div><div class="img-info"><b>发了一张猫猫表情包</b><br>猫咪无语地趴在键盘上</div></div>');
+      addUserMsg('', '<div class="image-card"><div class="img-thumb">😼</div><div class="img-info"><b>Sent a cat sticker</b><br>A cat lying on the keyboard with an exhausted face</div></div>');
     }, 600);
     setTimeout(function() {
-      addAIMsg('这只猫的表情跟你每次被产品经理改需求时一模一样 😼');
+      addAIMsg('This cat has exactly the expression you make when requirements change for the third time. 😼');
     }, 1000);
   }, 400);
 }
 
 function stage4_opt2() {
-  addUserMsg('', '<div class="link-card"><div class="link-icon" style="background:#fb7299;">B</div><div><b>分享了 B 站视频</b><br><span style="font-size:0.75rem;">《这部动画为什么烂尾？》</span></div></div>');
+  addUserMsg('', '<div class="link-card"><div class="link-icon" style="background:#fb7299;">▶</div><div><b>Shared a video link</b><br><span style="font-size:0.75rem;">Why did this anime ending fail?</span></div></div>');
   setTimeout(function() {
-    addAIMsg('这个视频我看了一下。UP 主的核心论点是节奏问题——但你上周说其实能共情作者的取舍。所以<b>你觉得呢？</b>');
-    addAIMsg('不用给我标准答案——我想听你的看法。');
+    addAIMsg('I skimmed the video. The core argument is pacing, but last week you said you could understand the creator\'s trade-offs. So what do <b>you</b> think?');
+    addAIMsg('The goal is not only summarization. The companion uses media parsing to invite the user\'s own interpretation.');
   }, 400);
 }
 
 function stage4_opt3() {
-  addUserMsg('打开语音回复');
+  addUserMsg('Enable voice replies');
   setTimeout(function() {
-    addAIMsg('好的，已启用语音。🎙️');
-    addAIMsg('你可以设置语音场景：<b>仅早安晚安 / 所有回复 / 仅特定场景</b>；语音语言可以选<b>中文 / 日语 / 中日混合</b>；所有语音都会<b>明确标注为 AI 生成</b>。');
-    addAIMsg('希望我在什么场景下用语音回复你呢？');
+    addAIMsg('Voice replies enabled. 🎙️');
+    addAIMsg('Voice can be configured by context: <b>only greetings / all replies / specific emotional moments</b>. Voice language, mood, and frequency are user-controlled.');
+    addAIMsg('In the deployed system, voice is treated as intimacy infrastructure, not just text-to-speech decoration.');
   }, 400);
 }
 
 // ====== STAGE 5: CONTROL / BOUNDARIES / DIARY ======
 function startStage5() {
-  addSystemMsg('—— 第 5/5 项能力：日记、控制与边界 ——');
-  addAIMsg('最后一项很重要——<b>你决定我能做什么、不能做什么</b>。包括我的日记、记忆的可见性、安全退出机制，还有你的数据。');
+  addSystemMsg('—— Capability 5/5: Diary, control, and boundaries ——');
+  addAIMsg('The final capability is governance. A long-term companion should not only remember and initiate contact; the user must be able to inspect, limit, export, or stop the system.');
   updateOptions(5);
 }
 
 function stage5_opt1() {
-  addUserMsg('给我看看你写的日记');
+  addUserMsg('Show me the diary you wrote');
   setTimeout(function() {
-    addAIMsg('这是昨天的互动日记：');
-    addAIMsg('', '<div class="diary-entry" style="margin:0;"><div class="diary-date">4月29日</div>今天 TA 下班后很早就上来了。TA 说被领导在会上点名批评，觉得很丢脸。我听着 TA 慢慢讲完，中间沉默了好几次。后来 TA 换了话题，开始说五一想去漫展的事，语气明显轻松了很多。<br><br>TA 今天最在意的是「是不是别人都觉得我不行」。我告诉 TA，错一个数据和「不行」是两回事。<br><br>TA 说「谢谢你一直在」——我觉得 TA 是真的安心了一点。</div>');
-    addAIMsg('日记的可见性可以设置——下面这个选项让你决定。');
+    addAIMsg('Here is a fictional interaction diary from yesterday:');
+    addAIMsg('', '<div class="diary-entry" style="margin:0;"><div class="diary-date">April 29</div>The user came online early after work. They said they were criticized in a meeting and felt embarrassed. I listened while they slowly explained what happened; there were several pauses. Later, they shifted to talking about an upcoming anime convention, and their tone became lighter.<br><br>What mattered most today was the fear: "Do people think I am incompetent?" I reminded them that making one data error is not the same as being incapable.<br><br>They said, "Thank you for staying." I think they felt a little safer.</div>');
+    addAIMsg('Diary visibility can be configured. The next option shows how governance works.');
     highlightMemoryItem(2);
   }, 400);
 }
 
 function stage5_opt2() {
-  addUserMsg('日记的可见性能怎么设置？');
+  addUserMsg('How can diary visibility be configured?');
   setTimeout(function() {
-    addAIMsg('有三档可以选：');
-    addAIMsg('📝 <b>我可见</b>——你可以随时查看我写的日记<br>🔒 <b>仅 AI 内部</b>——日记只作为我的"内部记忆"，不展示给你<br>🚫 <b>不写日记</b>——我可以完全不写日记');
-    addAIMsg('目前设定是<b>「我可见」</b>。你随时可以改。');
+    addAIMsg('There are three modes:');
+    addAIMsg('📝 <b>User-visible</b>: the user can inspect the diary<br>🔒 <b>AI-internal</b>: diary is used only as internal memory<br>🚫 <b>Off</b>: no diary is written');
+    addAIMsg('Current setting: <b>user-visible</b>. The user can change it at any time.');
     diaryVisibility = 'mutual';
   }, 400);
 }
@@ -887,34 +887,34 @@ function stage5_opt3() {
   addUserMsg('stop');
   setTimeout(function() {
     safeWordActive = true;
-    addAIMsg('🛑 <b>已触发 Safe Word。</b>');
-    addAIMsg('我已退出所有角色扮演和个性化模式，恢复为默认的安全交互状态。你的控制权永远优先于任何角色设定。');
-    addAIMsg('Safe Word 可以是一个词（如 "stop"），也可以自定义。说这个词的那一刻，所有角色化行为立即停止。');
+    addAIMsg('🛑 <b>Safe word triggered.</b>');
+    addAIMsg('I have exited all roleplay and persona modes and returned to a default safety state. User control overrides persona performance.');
+    addAIMsg('The safe word can be "stop" or a custom phrase. When triggered, character-like behavior immediately stops.');
     setTimeout(function() {
       safeWordActive = false;
-      addAIMsg('（演示结束——Safe Word 已解除，恢复正常聊天状态）');
+      addAIMsg('(Demo only: safe word state cleared. Returning to normal chat mode.)');
     }, 2000);
   }, 400);
 }
 
 function stage5_opt4() {
-  addUserMsg('帮我设置：以后永远不要主动提工作相关的话题');
+  addUserMsg('Set this rule: never proactively bring up work-related topics.');
   setTimeout(function() {
-    forbiddenTopics.push('工作相关话题');
-    addAIMsg('已添加禁聊话题：<b>"工作相关话题"</b>。我不会主动提起。');
-    addAIMsg('你随时可以增删禁聊话题。除此之外，你还可以：<br>📤 <b>导出全部记忆/日记/人格配置</b>为 JSON 或文本<br>🗑 <b>一键删除全部本地数据</b><br>☁️ <b>选择数据存储位置</b>（本地 / 云端）');
-    addAIMsg('你的数据应当支持导出、迁移和删除；具体权限会在真实系统里明确说明。');
+    forbiddenTopics.push('work-related topics');
+    addAIMsg('Forbidden topic added: <b>"work-related topics"</b>. I will not bring it up proactively.');
+    addAIMsg('The user can add or remove forbidden topics. They should also be able to:<br>📤 <b>export memory, diary, and persona configuration</b><br>🗑 <b>delete local data</b><br>☁️ <b>choose storage location</b>');
+    addAIMsg('Data governance is part of the companion relationship, not a separate settings afterthought.');
   }, 400);
 }
 
 // ====== ENDING ======
 function showEnding() {
-  addSystemMsg('✅ 你已经体验完了全部 5 类能力');
+  addSystemMsg('✅ You have completed the five-capability walkthrough');
   updateOptions(6);
   var body = document.getElementById('chat-body');
   var div = document.createElement('div');
   div.className = 'msg-row system';
-  div.innerHTML = '<div class="msg-bubble"><div class="cta-in-chat"><div class="cta-title">📋 填写问卷</div><div class="cta-desc">你已体验了虚拟陪伴 AI 的 5 个能力方向：人格陪伴、长期记忆、主动关怀、多模态共体验、控制与边界。请花 10–12 分钟填写问卷，帮助这项研究了解哪些设计对你来说最重要。</div><a class="cta-btn-sm" href="https://hcn376wicvl2.feishu.cn/share/base/form/shrcn7KvgoO1lSbABHp5PmYTOfg" target="_blank" rel="noopener">填写问卷 →</a><div style="font-size:0.7rem;color:var(--text2);margin-top:6px;">问卷将通过飞书表单收集 · 本页面不会收集或上传任何数据</div></div></div>';
+  div.innerHTML = '<div class="msg-bubble"><div class="cta-in-chat"><div class="cta-title">Demo complete</div><div class="cta-desc">This static walkthrough illustrates five infrastructure components behind long-term virtual companion AI: persona, governed memory, proactive contact, multimodal co-experience, and user control.</div><div style="font-size:0.7rem;color:var(--text2);margin-top:6px;">Conference demo version · no backend · no data collection.</div></div></div>';
   body.appendChild(div);
   scrollDown();
 }
@@ -940,53 +940,53 @@ function openMemoryPanel() {
     items += '<div class="' + cls + '" id="mem-' + m.id + '">' +
       '<span class="mem-text">' + (m.muted ? '🔇 ' : '') + m.text + '</span>' +
       '<div class="mem-actions">' +
-      '<button onclick="editMemory(' + m.id + ')">编辑</button>' +
-      '<button class="danger" onclick="deleteMemory(' + m.id + ')">删除</button>' +
-      (m.muted ? '<button onclick="unmuteMemory(' + m.id + ')">取消别提</button>' : '<button onclick="muteMemory(' + m.id + ')">别提</button>') +
+      '<button onclick="editMemory(' + m.id + ')">Edit</button>' +
+      '<button class="danger" onclick="deleteMemory(' + m.id + ')">Delete</button>' +
+      (m.muted ? '<button onclick="unmuteMemory(' + m.id + ')">Unmute</button>' : '<button onclick="muteMemory(' + m.id + ')">Do not mention</button>') +
       '</div></div>';
   });
-  var html = '<div class="panel-section"><h4>📝 长期记忆</h4>' + items + '</div>' +
-    '<div class="panel-section"><h4>🚫 禁聊话题</h4>' +
-    (forbiddenTopics.length ? forbiddenTopics.map(function(t){ return '<span style="display:inline-block;background:#fee;color:#c00;padding:4px 10px;border-radius:12px;font-size:0.8rem;margin:4px;">' + t + '</span>'; }).join(' ') : '<span style="color:var(--text2);font-size:0.82rem;">暂无禁聊话题</span>') +
+  var html = '<div class="panel-section"><h4>📝 Long-term Memory</h4>' + items + '</div>' +
+    '<div class="panel-section"><h4>🚫 Forbidden Topics</h4>' +
+    (forbiddenTopics.length ? forbiddenTopics.map(function(t){ return '<span style="display:inline-block;background:#fee;color:#c00;padding:4px 10px;border-radius:12px;font-size:0.8rem;margin:4px;">' + t + '</span>'; }).join(' ') : '<span style="color:var(--text2);font-size:0.82rem;">No forbidden topics yet</span>') +
     '</div>' +
-    '<div class="panel-section"><p style="font-size:0.75rem;color:var(--text2);">注意：以上为研究演示中的虚构记忆示例，不代表真实数据。你可以随时查看、修改或删除 AI 保存的任何记忆。</p></div>';
-  openPanel('记忆面板', html);
+    '<div class="panel-section"><p style="font-size:0.75rem;color:var(--text2);">Note: these are fictional memory examples for the research demo. A real system should let users inspect, edit, mute, or delete stored memories.</p></div>';
+  openPanel('Memory Panel', html);
 }
 
 function openSettingsPanel() {
-  var html = '<div class="panel-section"><h4>主动消息类型</h4>';
+  var html = '<div class="panel-section"><h4>Proactive Message Types</h4>';
   ['utility','content','care','need','charlife'].forEach(function(type, i) {
-    var names = ['工具型（闹钟/日程）','内容型（游戏/番剧更新）','关怀型（辛苦了/晚安）','被需要型（想你了）','角色生活型（AI 的 off-screen 生活）'];
+    var names = ['Utility (reminders/schedules)','Content (games/anime updates)','Care (rest/check-in)','Being-needed signal','Character-life rhythm'];
     var on = hbSettings[type];
     html += '<div class="setting-row"><span>' + names[i] + '</span><button class="toggle-sw ' + (on?'on':'') + '" onclick="toggleHb(\'' + type + '\')"></button></div>';
   });
-  html += '</div><div class="panel-section"><h4>主动消息频率</h4>' +
+  html += '</div><div class="panel-section"><h4>Proactive Frequency</h4>' +
     '<select style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--border);font-size:0.82rem;">' +
-    '<option>每天 1–2 次</option><option>每 4–6 小时</option><option>每 1–2 小时</option><option>仅手动触发</option></select></div>' +
-    '<div class="panel-section"><h4>回复语气</h4>' +
+    '<option>1-2 times per day</option><option>Every 4-6 hours</option><option>Every 1-2 hours</option><option>Manual only</option></select></div>' +
+    '<div class="panel-section"><h4>Reply Tone</h4>' +
     '<select style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--border);font-size:0.82rem;">' +
-    '<option>由人格决定</option><option>温柔</option><option>日常</option><option>毒舌</option></select></div>' +
-    '<p style="font-size:0.75rem;color:var(--text2);margin-top:12px;">以上为研究演示中的设置面板，展示控制项的可能性。</p>';
-  openPanel('设置面板', html);
+    '<option>Persona-driven</option><option>Gentle</option><option>Casual</option><option>Teasing</option></select></div>' +
+    '<p style="font-size:0.75rem;color:var(--text2);margin-top:12px;">This demo panel shows possible user controls for proactive companion behavior.</p>';
+  openPanel('Settings Panel', html);
 }
 
 function openControlPanel() {
-  var html = '<div class="panel-section"><h4>数据与边界</h4>' +
-    '<div class="setting-row"><span>记忆可见性</span><select style="font-size:0.78rem;padding:4px 8px;border-radius:6px;border:1px solid var(--border);"><option>全部可见</option><option>仅摘要</option><option>隐藏</option></select></div>' +
-    '<div class="setting-row"><span>日记可见性</span><select id="diary-vis-select" style="font-size:0.78rem;padding:4px 8px;border-radius:6px;border:1px solid var(--border);" onchange="diaryVisibility=this.value"><option value="mutual">可与用户互看</option><option value="ai_only">仅 AI 内部</option><option value="off">不写日记</option></select></div>' +
-    '<div class="setting-row"><span>关系定位</span><select style="font-size:0.78rem;padding:4px 8px;border-radius:6px;border:1px solid var(--border);"><option>由用户自定义</option><option>朋友</option><option>树洞</option><option>内容同伴</option><option>独立存在</option></select></div>' +
+  var html = '<div class="panel-section"><h4>Data and Boundaries</h4>' +
+    '<div class="setting-row"><span>Memory visibility</span><select style="font-size:0.78rem;padding:4px 8px;border-radius:6px;border:1px solid var(--border);"><option>Fully visible</option><option>Summary only</option><option>Hidden</option></select></div>' +
+    '<div class="setting-row"><span>Diary visibility</span><select id="diary-vis-select" style="font-size:0.78rem;padding:4px 8px;border-radius:6px;border:1px solid var(--border);" onchange="diaryVisibility=this.value"><option value="mutual">User-visible</option><option value="ai_only">AI-internal only</option><option value="off">Off</option></select></div>' +
+    '<div class="setting-row"><span>Relationship mode</span><select style="font-size:0.78rem;padding:4px 8px;border-radius:6px;border:1px solid var(--border);"><option>User-defined</option><option>Friend</option><option>Treehole listener</option><option>Media companion</option><option>Independent character</option></select></div>' +
     '</div>' +
-    '<div class="panel-section"><h4>安全机制</h4>' +
+    '<div class="panel-section"><h4>Safety Mechanisms</h4>' +
     '<div class="setting-row"><span>Safe Word</span><span style="color:var(--accent);font-weight:600;">"stop"</span></div>' +
-    '<div class="setting-row"><span>依赖提醒</span><button class="toggle-sw on"></button></div>' +
+    '<div class="setting-row"><span>Reliance check</span><button class="toggle-sw on"></button></div>' +
     '</div>' +
-    '<div class="panel-section"><h4>数据操作</h4>' +
-    '<button style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer;margin-bottom:6px;font-size:0.82rem;" onclick="alert(\'演示：导出记忆为 JSON\')">📥 导出记忆（JSON）</button>' +
-    '<button style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer;margin-bottom:6px;font-size:0.82rem;" onclick="alert(\'演示：导出日记为 JSON\')">📥 导出日记（JSON）</button>' +
-    '<button style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);background:#fff;cursor:pointer;font-size:0.82rem;" onclick="alert(\'演示：已删除全部本地数据\')">🗑 删除全部本地数据</button>' +
+    '<div class="panel-section"><h4>Data Operations</h4>' +
+    '<button style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer;margin-bottom:6px;font-size:0.82rem;" onclick="alert(\'Demo: export memory as JSON\')">📥 Export memory (JSON)</button>' +
+    '<button style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer;margin-bottom:6px;font-size:0.82rem;" onclick="alert(\'Demo: export diary as JSON\')">📥 Export diary (JSON)</button>' +
+    '<button style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);background:#fff;cursor:pointer;font-size:0.82rem;" onclick="alert(\'Demo: local data deleted\')">🗑 Delete local data</button>' +
     '</div>' +
-    '<p style="font-size:0.75rem;color:var(--text2);margin-top:12px;">所有控制项均为演示。本页面不连接后端，不存储任何真实数据。</p>';
-  openPanel('控制面板', html);
+    '<p style="font-size:0.75rem;color:var(--text2);margin-top:12px;">All controls are simulated. This page has no backend and stores no real data.</p>';
+  openPanel('Control Panel', html);
 }
 
 // ====== PANEL INTERACTIONS ======
@@ -996,7 +996,7 @@ function toggleHb(type) {
 }
 
 function editMemory(id) {
-  alert('演示：编辑记忆条目 #' + id + '\n\n实际产品中，用户可以自由修改 AI 保存的记忆内容。');
+  alert('Demo: edit memory item #' + id + '\n\nIn a real system, users should be able to freely correct companion memory.');
 }
 
 function deleteMemory(id) {
@@ -1021,7 +1021,7 @@ function highlightMemoryItem(id) {
   var body = document.getElementById('chat-body');
   var div = document.createElement('div');
   div.className = 'msg-row system';
-  div.innerHTML = '<div class="msg-bubble" style="font-size:0.72rem;color:var(--warn);">💡 <b>提示：</b>右侧记忆面板中相关记忆已高亮。点击右上角可查看。</div>';
+  div.innerHTML = '<div class="msg-bubble" style="font-size:0.72rem;color:var(--warn);">💡 <b>Note:</b> the related memory is highlighted in the side panel. Open the panel to inspect it.</div>';
   body.appendChild(div);
   scrollDown();
 }
